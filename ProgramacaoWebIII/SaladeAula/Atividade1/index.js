@@ -6,6 +6,16 @@ const path = require("path")
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+//Adicione um middleware que exiba no console a URL acessada e a hora da requisição
+
+const logMidleWare = (req, res, next) =>{
+    const horaAtual = new Date();
+    const horaFormatada = console.log(horaAtual.getHours() + ":" + horaAtual.getMinutes());
+    console.log("Rota acessada: http://localhost:8080/ às" + horaFormatada);
+}
+
+app.use(logMiddleware);
+
 // Importa as rotas do controller
 const rotas = require("./controller");
 app.use(rotas);
@@ -40,14 +50,16 @@ app.get("/produtos/estoque", (req, res)=>{
     console.log("Lista de dados");
 });
 
-//Adicione um middleware que exiba no console a URL acessada e a hora da requisição
+
 
 app.get("/contato", (req, res)=>{
+    const horaAtual = new Date();
+
     res.json({
         Nome: "Victor",
         Email: "devvictorsarris@gmail.com"
     });
-    console.log("URL acessada: http://localhost:8080/contato")
+    console.log("URL acessada: http://localhost:8080/contato às " + horaAtual.getHours() +":" + horaAtual.getMinutes());
 });
 
 // Crie uma rota que receba um parâmetro na URL e retorne esse valor em maiúsculas.

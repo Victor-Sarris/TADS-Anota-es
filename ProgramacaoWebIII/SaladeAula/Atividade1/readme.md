@@ -1,7 +1,7 @@
 ## Questão 1  
 **Crie uma aplicação Express com três rotas diferentes:**
 
-```
+```node
 app.get("/", (req, res)=>{
     res.send("Rota Principal")
     const hora = new Date();

@@ -38,7 +38,7 @@ app.use(logMidleWare);
 ```
 
 ## Questão 3
-**Faça uma rota que retorne dados em JSON, simulando uma API de produtos. 
+**Faça uma rota que retorne dados em JSON, simulando uma API de produtos.**
 ```node
 app.get("/produtos/estoque", (req, res)=>{
     res.json({
@@ -49,7 +49,7 @@ app.get("/produtos/estoque", (req, res)=>{
 ```
 
 ## Questão 4
-**Crie uma rota que receba um parâmetro na URL e retorne esse valor em maiúsculas.
+**Crie uma rota que receba um parâmetro na URL e retorne esse valor em maiúsculas.**
 ```node
 app.get("/produtos/estoque/:conteudo", (req, res)=>{
     const valor = req.params.conteudo
@@ -59,7 +59,7 @@ app.get("/produtos/estoque/:conteudo", (req, res)=>{
 ```
 
 ## Questão 5
-**Implemente uma rota /aluno/:nome/:idade que receba o nome e idade como parâmetros e retorne uma frase como: 
+**Implemente uma rota /aluno/:nome/:idade que receba o nome e idade como parâmetros e retorne uma frase como:**
 ```node
 app.get("/aluno/:nome/:idade", (req, res)=>{
     const param1 = req.params.nome
@@ -69,8 +69,8 @@ app.get("/aluno/:nome/:idade", (req, res)=>{
 ```
 
 ## Questão 6 e 7
-**Crie uma rota /busca que use query string (?q=valor) e retorne "Você buscou por: valor"
-**Adicione tratamento de erro para quando o parâmetro ou query não for informado.
+**Crie uma rota /busca que use query string (?q=valor) e retorne "Você buscou por: valor"**
+**Adicione tratamento de erro para quando o parâmetro ou query não for informado.**
 ```node
 app.get("/busca", (req, res)=>{
     var busca = req.query.q
@@ -87,7 +87,7 @@ app.get("/busca", (req, res)=>{
 ```
 
 ## Questão 8
-**Crie uma rota que receba dois números como parâmetros (/soma/5/3) e retorne o resultado da soma. 
+**Crie uma rota que receba dois números como parâmetros (/soma/5/3) e retorne o resultado da soma.**
 ```node
 app.get("/soma/:num1/:num2", (req, res)=>{
     var resultado = Number(req.params.num1) + Number(req.params.num2)
@@ -96,10 +96,10 @@ app.get("/soma/:num1/:num2", (req, res)=>{
 ```
 
 ## Questão 9 e 10
-**Configure um controller separado para lidar com rotas de /usuarios.
-**10. No controller, crie duas rotas: 
-**o /usuarios/ → retorna lista de usuários 
-**o /usuarios/:id → retorna detalhes de um usuário específico.
+**Configure um controller separado para lidar com rotas de /usuarios.**
+**10. No controller, crie duas rotas**
+**o /usuarios/ → retorna lista de usuários** 
+**o /usuarios/:id → retorna detalhes de um usuário específico.**
 ```node
 const express = require("express");
 const router = express.Router();
@@ -144,14 +144,14 @@ module.exports = router;
 ```
 
 ## Questão 11 e 12
-**Crie um template EJS que receba uma lista de produtos (array de objetos) e exiba como uma tabela HTML.
-**Adicione CSS básico ao template para melhorar a apresentação. 
+**Crie um template EJS que receba uma lista de produtos (array de objetos) e exiba como uma tabela HTML.**
+**Adicione CSS básico ao template para melhorar a apresentação.** 
 ```node
 /views/produtos.ejs
 ```
 
 ## Questão 13
-**Modifique o template pagina.ejs para receber dois parâmetros: titulo e mensagem.
+**Modifique o template pagina.ejs para receber dois parâmetros: titulo e mensagem.**
 ```node
 /views/pagina.ejs
 ```

@@ -1,41 +1,36 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo List</title>
 </head>
-<body>  
-    <h1>ToDo task List</h1>
+<body>
+    <h1>ToDo task list</h1>
+    
     <table>
         <thead>
-            <th>Task</th>
+            <th>Task</th>   <!-- table header  -->
             <th>Status</th>
             <th>Action</th>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    Estudar EJS
-                </td>
-                <td>
-                    <a href="">Salvar</a>
-                </td>
-                <td>
-                    Pendente
-                </td>
-                <td>
-                    <a href="">Salvar</a>
-                </td>
-                <td>
-                    Concluir 
-                </td>
-                <td>
-                    <a href="">Salvar</a>
-                </td>
-            </tr>
+            <% tasks.forEach(task => { %>
+                <tr>        <!-- table row  -->
+                    <td>    <!-- table data  -->
+                        <%= task.title %>
+                    </td>
+                    <td>
+                        <%= task.completed?"Completed":"Pending" %>
+                    </td>
+                    <td>
+                        <a href="/tasks/<%= task.id %>">Finish<%= task.id %></a>
+                    </td>
+                </tr>
+            <% }); %>
         </tbody>
     </table>
-    <a href="">Concluir</a>
+    <br>
+    <a>New task</a>
 </body>
 </html>

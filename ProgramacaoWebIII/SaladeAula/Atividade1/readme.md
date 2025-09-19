@@ -1,157 +1,115 @@
-## Questão 1  
-**Crie uma aplicação Express com três rotas diferentes:**
+## 💡 Funcionalidades
 
-```node
-app.get("/", (req, res)=>{
-    res.send("Rota Principal")
-    const hora = new Date();
-    console.log("URL acessada: http://localhost:8080/Raiz as " + hora.getHours() + ":" + hora.getMinutes());
-});
+- Visualização de tarefas em formato de tabela
+- Marcação de tarefas como concluídas
+- Adição de novas tarefas
 
-app.get("/produtos", (req, res)=>{
-    res.send("Arroz, Banana, Manga, Filé de Frango, Macarrão")
-    console.log("URL acessada: http://localhost:8080/produtos")
+## 🚀 Como Executar
 
-    const produtos = [
-    { id: 1, nome: "Camiseta", preco: 50 },
-    { id: 2, nome: "Calça", preco: 120 },
-    { id: 3, nome: "Tênis", preco: 200 }
-  ];
+```bash
+# Instalar dependências
+npm install
 
-  res.render("produtos", {produtos});
-}); 
+# Iniciar o servidor em modo de desenvolvimento
+npm run dev
 
+# OU iniciar o servidor normalmente
+npm start
 ```
 
-## Questão 2  
-**Adicione um middleware que exiba no console a URL acessada e a hora da requisição.**
+Acesse a aplicação em: http://localhost:3000/tasks
 
-```node
-const logMidleWare = (req, res, next) => {
-    const horaAtual = new Date();
-    const horaFormatada = horaAtual.getHours() + ":" + horaAtual.getMinutes();
-    console.log("Rota acessada: http://localhost:8080" + req.url + " às " + horaFormatada);
-    next();
-};
+## 📋 Estrutura da Aplicação
 
-app.use(logMidleWare);
-```
+### Backend (app.js)
 
-## Questão 3
-**Faça uma rota que retorne dados em JSON, simulando uma API de produtos.**
-```node
-app.get("/produtos/estoque", (req, res)=>{
-    res.json({
-        Lista: ["Arroz", "Banana", "Manga", "Filé de Frango", "Macarrão"]
-    })
-    console.log("Lista de dados");
-});
-```
+O backend utiliza Express e EJS para renderização de páginas. As tarefas atualmente são mantidas em memória (sem persistência em banco de dados).
 
-## Questão 4
-**Crie uma rota que receba um parâmetro na URL e retorne esse valor em maiúsculas.**
-```node
-app.get("/produtos/estoque/:conteudo", (req, res)=>{
-    const valor = req.params.conteudo
-    const resultado = valor.toUpperCase();
-    res.send(resultado)
-});
-```
-
-## Questão 5
-**Implemente uma rota /aluno/:nome/:idade que receba o nome e idade como parâmetros e retorne uma frase como:**
-```node
-app.get("/aluno/:nome/:idade", (req, res)=>{
-    const param1 = req.params.nome
-    const param2 = req.params.idade
-    res.send("O aluno " + param1 + " tem " + param2 + " anos.")
-});
-```
-
-## Questão 6 e 7
-**Crie uma rota /busca que use query string (?q=valor) e retorne "Você buscou por: valor"**
-**Adicione tratamento de erro para quando o parâmetro ou query não for informado.**
-```node
-app.get("/busca", (req, res)=>{
-    var busca = req.query.q
-
-    // tratamento de erro
-    if(!busca){
-        console.log("Erro: nenhum parametro de busca informado")
-        return res.status(400).send("Erro: nenhum parametro de busca informado")
-    } else{
-        res.send("Você buscou por: " + busca)
-    }
-
-});
-```
-
-## Questão 8
-**Crie uma rota que receba dois números como parâmetros (/soma/5/3) e retorne o resultado da soma.**
-```node
-app.get("/soma/:num1/:num2", (req, res)=>{
-    var resultado = Number(req.params.num1) + Number(req.params.num2)
-    res.send(resultado)
-});
-```
-
-## Questão 9 e 10
-**Configure um controller separado para lidar com rotas de /usuarios.**
-**10. No controller, crie duas rotas**
-**o /usuarios/ → retorna lista de usuários** 
-**o /usuarios/:id → retorna detalhes de um usuário específico.**
-```node
+```javascript
 const express = require("express");
-const router = express.Router();
+const app = express();
 
-const usuarios = [
-    { id: 1, nome: "Alice", email: "alice@email.com" },
-    { id: 2, nome: "Bruno", email: "bruno@email.com" },
-    { id: 3, nome: "Carla", email: "carla@email.com" }
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+
+// Array para armazenar tarefas
+let tasks = [
+  { id: 1, name: "Estudar Node.js", completed: false },
+  { id: 2, name: "Preparar aula", completed: true }
 ];
 
-router.get("/usuarios", (req, res)=>{
-    res.json(usuarios)
-})
-
-router.get("/usuarios/:id", (req, res)=>{
-    var id = Number(req.params.id);
-    var usuario = usuarios.find(u => u.id === id);
-
-    if (!usuario) {
-        return res.status(404).send("Usuário não encontrado");
-    }
-
-    res.json(usuario);
-})
-
-// Rota /produtos
-router.get("/produtos", (req, res) => {
-  const produtos = [
-    { id: 1, nome: "Camiseta", preco: 50 },
-    { id: 2, nome: "Calça", preco: 120 },
-    { id: 3, nome: "Tênis", preco: 200 }
-  ];
-  res.render("produtos", { produtos });
+// Rota para exibir tarefas
+app.get("/tasks", (req, res) => {
+  res.render("index", { tasks });
 });
 
-// Rota /pagina
-router.get("/pagina", (req, res) => {
-  res.render("pagina", { titulo: "Bem-vindo", mensagem: "Página dinâmica com EJS" });
+// Rota para adicionar nova tarefa
+app.post("/tasks", (req, res) => {
+  const { name } = req.body;
+  if (name) {
+    tasks.push({ id: Date.now(), name, completed: false });
+  }
+  res.redirect("/tasks");
 });
 
-module.exports = router;
+// Rota para marcar tarefa como concluída
+app.post("/tasks/:id/complete", (req, res) => {
+  const id = parseInt(req.params.id);
+  tasks = tasks.map(task =>
+    task.id === id ? { ...task, completed: true } : task
+  );
+  res.redirect("/tasks");
+});
+
+app.listen(3000, () => {
+  console.log("Servidor online.");
+});
 ```
 
-## Questão 11 e 12
-**Crie um template EJS que receba uma lista de produtos (array de objetos) e exiba como uma tabela HTML.**
-**Adicione CSS básico ao template para melhorar a apresentação.** 
-```node
-/views/produtos.ejs
+### Frontend (views/index.ejs)
+
+A interface apresenta uma tabela com as tarefas, seus status e ações disponíveis:
+
+- Coluna **Task**: Nome da tarefa
+- Coluna **Status**: Estado atual (pendente/concluída)
+- Coluna **Action**: Botão para marcar como concluída
+- Formulário para adicionar novas tarefas
+
+Exemplo de estrutura:
+
+```ejs
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <% tasks.forEach(task => { %>
+    <tr>
+      <td><%= task.name %></td>
+      <td><%= task.completed ? "Concluída" : "Pendente" %></td>
+      <td>
+        <% if (!task.completed) { %>
+          <form method="POST" action="/tasks/<%= task.id %>/complete">
+            <button type="submit">Concluir</button>
+          </form>
+        <% } %>
+      </td>
+    </tr>
+  <% }) %>
+</table>
+
+<form method="POST" action="/tasks">
+  <input type="text" name="name" placeholder="Nova tarefa" required>
+  <button type="submit">Adicionar</button>
+</form>
 ```
 
-## Questão 13
-**Modifique o template pagina.ejs para receber dois parâmetros: titulo e mensagem.**
-```node
-/views/pagina.ejs
-```
+## 🔍 Próximos Passos
+- Melhorar o design com CSS
+
+## 👨🏽‍🏫 Autor
+
+**Professor**: Ronaldo Borges  
+**Disciplina**: Programação para Internet II  
+**Curso**: TADS 2025.2

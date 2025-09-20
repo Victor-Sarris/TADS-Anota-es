@@ -1,12 +1,7 @@
 [
     {
-        "id": 3,
-        "title": "Estudar JavaScript",
+        "id": "4d45991d-bb08-4b76-88b6-fd68edd1ad63",
+        "title": "como fazer vitamina de bana, sem a banana, sem leite, sem agua e sem liquidificador",
         "completed": true
-    },
-    {
-        "id": "747d49ec-fc68-4cef-b639-ccae86f2f096",
-        "title": "Explicar pq o \"import...from\" não funcionou.",
-        "completed": false
     }
 ]

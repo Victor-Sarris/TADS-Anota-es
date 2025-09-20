@@ -78,3 +78,9 @@ A interface apresenta uma tabela com as tarefas, seus status e ações disponív
 ## FRAMEWORK 
 
 O FrameWork utulizado foi o Bulma, a baixo contém exemplos da estilização da págian .ejs
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d9102e49-860f-4c0e-9241-de5c1887dc04" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a7cd1e92-8f3b-4f6d-bc09-c2df1d3489e2" />
+
+

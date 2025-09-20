@@ -75,41 +75,6 @@ A interface apresenta uma tabela com as tarefas, seus status e ações disponív
 - Coluna **Action**: Botão para marcar como concluída
 - Formulário para adicionar novas tarefas
 
-Exemplo de estrutura:
+## FRAMEWORK 
 
-```ejs
-<table>
-  <tr>
-    <th>Task</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
-  <% tasks.forEach(task => { %>
-    <tr>
-      <td><%= task.name %></td>
-      <td><%= task.completed ? "Concluída" : "Pendente" %></td>
-      <td>
-        <% if (!task.completed) { %>
-          <form method="POST" action="/tasks/<%= task.id %>/complete">
-            <button type="submit">Concluir</button>
-          </form>
-        <% } %>
-      </td>
-    </tr>
-  <% }) %>
-</table>
-
-<form method="POST" action="/tasks">
-  <input type="text" name="name" placeholder="Nova tarefa" required>
-  <button type="submit">Adicionar</button>
-</form>
-```
-
-## 🔍 Próximos Passos
-- Melhorar o design com CSS
-
-## 👨🏽‍🏫 Autor
-
-**Professor**: Ronaldo Borges  
-**Disciplina**: Programação para Internet II  
-**Curso**: TADS 2025.2
+O FrameWork utulizado foi o Bulma, a baixo contém exemplos da estilização da págian .ejs

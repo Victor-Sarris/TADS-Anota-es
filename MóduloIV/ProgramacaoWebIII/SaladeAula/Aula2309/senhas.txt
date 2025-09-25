@@ -1,0 +1,4 @@
+user: isaquevieira2006_db_user
+senhas: OT8pEoFH50DDMkrk
+
+mongodb+srv://isaquevieira2006_db_user:OT8pEoFH50DDMkrk@bdteste.3bwexqy.mongodb.net/?ServidorAulaIII Writes=true&w=majority&appName=BDteste
